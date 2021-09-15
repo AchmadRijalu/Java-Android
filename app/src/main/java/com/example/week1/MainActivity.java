@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements editListener, del
 
     @Override
     public void OnEdit(int position) {
-        Toast.makeText(getBaseContext(), "position = " + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getBaseContext(), "position = " + position, Toast.LENGTH_SHORT).show();
 
         String nama = listuser.get(position).getNama();
         String umur = listuser.get(position).getUmur();

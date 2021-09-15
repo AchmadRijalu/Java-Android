@@ -52,7 +52,7 @@ public class readUser extends AppCompatActivity {
                 intent.putExtra("user", user);
                 intent.putExtra("action", 25);
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -63,10 +63,11 @@ public class readUser extends AppCompatActivity {
                 builder.setMessage("Apakah anda yakin mau menghapus? " + user.getNama()).setPositiveButton("Yakin", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getBaseContext(), "position = " + position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), user.getNama(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getBaseContext(),MainActivity.class);
-                        intent.putExtra("position", position);
+//                        intent.putExtra("position", position);
                         MainActivity.listuser.remove(position);
+                        Toast.makeText(getBaseContext(), "Berhasil Dihapus", Toast.LENGTH_SHORT).show();
                         MainActivity.adapter.notifyDataSetChanged();
                         finish();
                     }
