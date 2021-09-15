@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,8 +20,8 @@ public class MainActivity extends AppCompatActivity implements editListener, del
 
     private RecyclerView recyclerview_recyclerview;
     private FloatingActionButton float_button;
-    private Adapter adapter;
-    private static ArrayList<data>listuser;
+    static Adapter adapter;
+    public static ArrayList<data>listuser;
 
 
 
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements editListener, del
         float_button = findViewById(R.id.float_button);
         listuser = new ArrayList<data>();
         adapter = new Adapter(listuser, this, this);
+
+
+
 
         float_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +64,12 @@ public class MainActivity extends AppCompatActivity implements editListener, del
                 adapter.notifyDataSetChanged();
 
             }
+            else if(resultCode == 400){
+                data databaru = data.getParcelableExtra("userbaru");
+
+
+                adapter.notifyDataSetChanged();
+            }
 
         }
     }
@@ -72,12 +82,17 @@ public class MainActivity extends AppCompatActivity implements editListener, del
 
     @Override
     public void OnEdit(int position) {
+        Toast.makeText(getBaseContext(), "position = " + position, Toast.LENGTH_SHORT).show();
+
         String nama = listuser.get(position).getNama();
         String umur = listuser.get(position).getUmur();
         String alamat = listuser.get(position).getAlamat();
         data dapat = new data(nama,umur,alamat);
         Intent intent = new Intent(getBaseContext(), readUser.class);
+        intent.putExtra("position",position);
         intent.putExtra("user", dapat);
         startActivity(intent);
     }
+
+
 }

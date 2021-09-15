@@ -34,6 +34,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.DataViewHolder> {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.data_input,parent, false);
         return new DataViewHolder(view,edit,delete);
+
     }
 
     @Override
@@ -41,6 +42,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.DataViewHolder> {
             holder.nama_value.setText(listdata.get(position).getNama());
             holder.umur_value.setText(listdata.get(position).getUmur());
             holder.alamat_value.setText(listdata.get(position).getAlamat());
+
         }
 
     @Override
@@ -63,7 +65,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.DataViewHolder> {
             card_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Adapter.this.edit.OnEdit(getAdapterPosition());
+                    edit.OnEdit(getAdapterPosition());
+
 //                    Intent intent = new Intent(v.getContext(), readUser.class);
 //                    intent.putExtra("nama", nama_value.getText());
 //                    intent.putExtra("umur", umur_value.getText());

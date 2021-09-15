@@ -6,11 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.data;
 import model.loading;
@@ -21,6 +27,7 @@ public class Form extends AppCompatActivity {
     private Button set_button;
     private int isEdit;
     private TextView set_judul;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +38,16 @@ public class Form extends AppCompatActivity {
         set_alamat = findViewById(R.id.set_alamat);
         set_button = findViewById(R.id.set_button);
         set_judul = findViewById(R.id.set_judul);
+
+        set_nama.getEditText().addTextChangedListener(watcher);
+        set_umur.getEditText().addTextChangedListener(watcher);
+        set_alamat.getEditText().addTextChangedListener(watcher);
+
+
+        set_button.setEnabled(false);
+        final int position= getIntent().getIntExtra("position",0);
+
+
 //        Intent intent = getIntent();
 //        String action = intent.getStringExtra("action");
 //
@@ -40,9 +57,33 @@ public class Form extends AppCompatActivity {
 
         Intent intent = getIntent();
         isEdit = intent.getIntExtra("action", 0);
+
         if(isEdit == 25){
             set_button.setText("Edit data");
             set_judul.setText("Edit Data");
+            data user = intent.getParcelableExtra("user");
+            set_nama.getEditText().setText(user.getNama());
+            set_umur.getEditText().setText(user.getUmur());
+            set_alamat.getEditText().setText(user.getAlamat());
+
+            set_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String nama = set_nama.getEditText().getText().toString().trim();
+                    String umur = set_umur.getEditText().getText().toString().trim();
+                    String alamat = set_alamat.getEditText().getText().toString().trim();
+                    data editdata = new data(nama,umur,alamat);
+                    MainActivity.listuser.set(position,editdata);
+                    MainActivity.adapter.notifyDataSetChanged();
+                    finish();
+//                    Intent intent2 = new Intent(getBaseContext(),MainActivity.class);
+//            intent.putExtra("userbaru", editdata);
+//            setResult(100,intent2);
+                }
+            });
+
+
+
 
 
 
@@ -76,6 +117,31 @@ public class Form extends AppCompatActivity {
 
 
     }
+
+
+
+    private TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String title = set_nama.getEditText().getText().toString().trim();
+            String umur = set_umur.getEditText().getText().toString().trim();
+            String alamat = set_alamat.getEditText().getText().toString().trim();
+
+            set_button.setEnabled(!title.isEmpty() && !umur.isEmpty() && !alamat.isEmpty());
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
 
 }
