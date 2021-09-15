@@ -20,15 +20,6 @@
         app:title="Add user"
         app:titleTextColor="#FFFFFF" />
 
-    <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="67dp"
-        android:layout_height="49dp"
-        app:layout_constraintEnd_toEndOf="@+id/set_title"
-        app:layout_constraintStart_toStartOf="@+id/set_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
-
     <TextView
         android:id="@+id/set_judul"
         android:layout_width="wrap_content"

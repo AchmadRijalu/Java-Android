@@ -2,6 +2,7 @@ package com.example.week1;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class Form extends AppCompatActivity {
     private Button set_button;
     private int isEdit;
     private TextView set_judul;
+    private Toolbar set_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class Form extends AppCompatActivity {
         set_alamat = findViewById(R.id.set_alamat);
         set_button = findViewById(R.id.set_button);
         set_judul = findViewById(R.id.set_judul);
-
+        set_title = findViewById(R.id.set_title);
         set_nama.getEditText().addTextChangedListener(watcher);
         set_umur.getEditText().addTextChangedListener(watcher);
         set_alamat.getEditText().addTextChangedListener(watcher);
@@ -61,6 +63,7 @@ public class Form extends AppCompatActivity {
         if(isEdit == 25){
             set_button.setText("Edit data");
             set_judul.setText("Edit Data");
+            set_title.setTitle("Edit Data");
             data user = intent.getParcelableExtra("user");
             set_nama.getEditText().setText(user.getNama());
             set_umur.getEditText().setText(user.getUmur());
